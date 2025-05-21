@@ -99,7 +99,7 @@ fun MovieContent(
                     .padding(12.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(text = movie.title)
+                Text(text = movie.title ?: "")
                 Text(text = "${movie.voteCount}")
             }
         }

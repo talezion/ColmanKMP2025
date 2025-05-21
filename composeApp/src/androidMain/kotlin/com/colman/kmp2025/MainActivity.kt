@@ -7,12 +7,13 @@ import androidx.activity.viewModels
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.colman.kmp2025.di.MoviesViewModelFactory
 import com.colman.kmp2025.features.MoviesScreen
 import com.colman.kmp2025.features.movies.MoviesViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: MoviesViewModel by viewModels()
+    private val viewModel: MoviesViewModel by viewModels { MoviesViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

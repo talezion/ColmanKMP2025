@@ -11,34 +11,45 @@ import Shared
 
 struct MoviesScreen: View {
     
+    @State private var selectedMovie: Movie?
     @ObservedObject private(set) var viewModel = MoviesViewModelWrapper()
     
     var body: some View {
         
-        NavigationView {
+        NavigationStack {
             VStack {
                 switch onEnum(of: viewModel.uiState) {
-                case .loading: LoadingView()
-                case .loaded(let movies): MoviesView(movies: movies.movies)
-                case .error(let error): ErrorView(message: error.errorMessage)
+                case .loading:
+                    LoadingView()
+                case .loaded(let movies):
+                    MoviesView(movies: movies.movies) { movie in
+                        // TODO: 
+                    }
+                case .error(let error):
+                    ErrorView(message: error.errorMessage)
                 }
             }
             .navigationTitle("Movies")
             .onAppear() {
                 viewModel.startObserving()
             }
+            .navigationDestination(item: $selectedMovie) { movie in
+                MovieDetailScreen(movie: movie)
+            }
         }
     }
 }
 
+
 struct MoviesView: View {
     
     let movies: Movies
+    let onMovieSelected: (Movie) -> Void
     
     var body: some View {
         
         List(movies.items, id: \.id) { movie in
-            MovieRowView(movie: movie)
+            MovieRowView(movie: movie, onMovieSelected: onMovieSelected)
         }
         .listStyle(.plain)
     }
@@ -47,6 +58,7 @@ struct MoviesView: View {
 struct MovieRowView: View {
     
     let movie: Movie
+    let onMovieSelected: (Movie) -> Void
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -57,12 +69,12 @@ struct MovieRowView: View {
                 .cornerRadius(8)
             
             VStack(alignment: .leading, spacing: 6) {
-                Text(movie.title)
+                Text(movie.title ?? "")
                     .font(.headline)
                     .foregroundColor(.primary)
                     .lineLimit(2)
                 
-                Text(movie.id)
+                Text("\(movie.id ?? 1)")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .lineLimit(2)
@@ -83,12 +95,28 @@ struct MovieImageView: View {
         GeometryReader { geometry in
             
             let imageHeight = geometry.size.height * aspectRatio
+            let url = URL(string: "https://image.tmdb.org/t/p/w500/\(posterPath ?? "")")
+            
             
             ZStack {
-                Image(.dieHard)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: imageHeight)
+                AsyncImage(url: url) { phase in
+                    
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: geometry.size.width, height: imageHeight)
+                    case .failure(let error):
+                        // Default value
+                        EmptyView()
+                    @unknown default:
+                        EmptyView()
+                    }
+                }
                 
             }
         }
@@ -114,32 +142,7 @@ struct ErrorView: View {
 }
 
 
-extension MoviesScreen {
-    
-    @MainActor
-    class MoviesViewModelWrapper: ObservableObject {
-        
-        let viewModel: MoviesViewModel
-        @Published var uiState: MoviesState
-        
-        init() {
-            self.viewModel = MoviesViewModel()
-            self.uiState = viewModel.uiState.value
-        }
-        
-        func startObserving() {
-            Task {
-                for await state in viewModel.uiState {
-                    self.uiState = state
-                }
-            }
-        }
-    }
-    
-}
-
-
 
 #Preview {
-    MoviesScreen()
+//    MoviesScreen()
 }
