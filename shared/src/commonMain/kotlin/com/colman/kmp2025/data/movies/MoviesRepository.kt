@@ -1,4 +1,4 @@
-package com.colman.kmp2025.data
+package com.colman.kmp2025.data.movies
 
 import com.colman.kmp2025.models.Movies
 

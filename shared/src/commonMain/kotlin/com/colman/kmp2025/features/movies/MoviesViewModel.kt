@@ -1,22 +1,20 @@
 package com.colman.kmp2025.features.movies
 
 import co.touchlab.kermit.Logger
-import com.colman.kmp2025.data.MoviesRepository
+import com.colman.kmp2025.data.firebase.FirebaseRepository
+import com.colman.kmp2025.data.movies.MoviesRepository
 import com.colman.kmp2025.features.BaseViewModel
-import com.colman.kmp2025.models.Movie
-import com.colman.kmp2025.models.Movies
-import kotlinx.coroutines.async
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.FirebaseNetworkException
+import dev.gitlive.firebase.auth.auth
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 class MoviesViewModel(
-    private val repository: MoviesRepository
+    private val repository: MoviesRepository,
+    private val firebaseRepository: FirebaseRepository
 ): BaseViewModel() {
 
     private val _uiState: MutableStateFlow<MoviesState> = MutableStateFlow(MoviesState.Loading)
@@ -27,6 +25,24 @@ class MoviesViewModel(
 
     init {
         fetchMovies()
+        signin()
+    }
+
+    private fun signin() {
+        scope.launch {
+            signinAnonymously()
+        }
+    }
+
+    private suspend fun signinAnonymously() {
+        if (Firebase.auth.currentUser == null) {
+            Firebase.auth.signInAnonymously()
+            try {
+                Firebase.auth.signInAnonymously()
+            } catch (e: FirebaseNetworkException) {
+                e.message?.let { Logger.e(it) }
+            }
+        }
     }
 
     private fun fetchMovies() {
@@ -39,6 +55,11 @@ class MoviesViewModel(
                     MoviesState.Error(errorMessage = "Failed to fetch upcoming movies!! ")
                 )
             } else {
+
+                delay(300)
+
+                firebaseRepository.saveMovie(movies.items.first())
+
                 _uiState.emit(
                     MoviesState.Loaded(movies)
                 )

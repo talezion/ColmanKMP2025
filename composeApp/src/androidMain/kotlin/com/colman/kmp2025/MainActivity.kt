@@ -36,6 +36,7 @@ import com.colman.kmp2025.features.MoviesScreen
 import com.colman.kmp2025.features.movies.MoviesViewModel
 import com.colman.kmp2025.models.Movie
 import com.colman.kmp2025.shared_components.BottomNavigationBar
+import com.google.firebase.FirebaseApp
 
 sealed class MovieTab(val route: String, val title: String) {
     data object Home : MovieTab("home", "Home")
@@ -48,6 +49,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        FirebaseApp.initializeApp(this)
 
         setContent {
 

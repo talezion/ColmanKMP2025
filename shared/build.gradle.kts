@@ -17,7 +17,7 @@ kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
     
@@ -31,7 +31,7 @@ kotlin {
             isStatic = true
         }
     }
-    
+      
     sourceSets {
 
         androidMain.dependencies {
@@ -40,10 +40,17 @@ kotlin {
         }
 
         commonMain.dependencies {
+
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.firestore)
+            implementation(libs.firebase.common)
+            implementation(libs.firebase.auth)
+
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kermit)
 
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
         }
@@ -58,8 +65,8 @@ android {
     namespace = "com.colman.kmp2025.shared"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "759106210049",
+    "project_id": "colman25class2",
+    "storage_bucket": "colman25class2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759106210049:android:ebb2d1a71d071c2d487300",
+        "android_client_info": {
+          "package_name": "com.colman.kmp2025"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtacucZ2d01GnnwQDcIMCbAmUcBZY9V9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759106210049:android:23e8e80b82e64666487300",
+        "android_client_info": {
+          "package_name": "com.colman.kmpdemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtacucZ2d01GnnwQDcIMCbAmUcBZY9V9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759106210049:android:d3a86e8ce85683be487300",
+        "android_client_info": {
+          "package_name": "com.idz.colman24class2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtacucZ2d01GnnwQDcIMCbAmUcBZY9V9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
