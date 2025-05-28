@@ -65,6 +65,11 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.androidx.navigation.compose)
+
+    implementation(libs.coil.compose)
+
     implementation(libs.androidx.ui)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.foundation)

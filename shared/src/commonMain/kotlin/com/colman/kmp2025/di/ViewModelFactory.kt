@@ -5,12 +5,13 @@ import com.colman.kmp2025.data.RemoteMoviesRepository
 import com.colman.kmp2025.features.movies.MoviesViewModel
 import io.ktor.client.HttpClient
 
-expect fun createHttpClient(): HttpClient
+expect abstract class AbstractViewModelFactory() {
+    val httpClient: HttpClient
+}
 
-object ViewModelFactory {
+object ViewModelFactory: AbstractViewModelFactory() {
 
-    private val httpClient: HttpClient = createHttpClient()
-    private val bearerToken = "{set_your_token}"
+    private val bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YzFkZTRjNTYwOWZjMjFiMGIxNDUyZTQyYTcyZmJlYiIsIm5iZiI6MTU3MzY1NTM1Ny45MjYsInN1YiI6IjVkY2MxMzNkMWQ3OGYyMDAxODI0NzIyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JBCRjw5RKlVIiDOpfPHDVQ7wXYHES_scI9aV0Ms4kpM"
 
     private val repository: MoviesRepository = RemoteMoviesRepository(
         client = httpClient,

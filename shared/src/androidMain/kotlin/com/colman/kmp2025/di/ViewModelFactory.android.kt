@@ -9,14 +9,18 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-actual fun createHttpClient(): HttpClient = HttpClient(OkHttp) {
-    install(ContentNegotiation) { json(
-        Json {
-            ignoreUnknownKeys = true
-            prettyPrint = true
-            isLenient = true
+actual abstract class AbstractViewModelFactory {
+    actual val httpClient: HttpClient = HttpClient(OkHttp) {
+        install(ContentNegotiation) {
+            json(
+                Json {
+                    ignoreUnknownKeys = true
+                    prettyPrint = true
+                    isLenient = true
+                }
+            )
         }
-    ) }
+    }
 }
 
 class MoviesViewModelFactory : ViewModelProvider.Factory {
