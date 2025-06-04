@@ -13,7 +13,7 @@ expect abstract class AbstractViewModelFactory() {
 
 object ViewModelFactory: AbstractViewModelFactory() {
 
-    private val bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YzFkZTRjNTYwOWZjMjFiMGIxNDUyZTQyYTcyZmJlYiIsIm5iZiI6MTU3MzY1NTM1Ny45MjYsInN1YiI6IjVkY2MxMzNkMWQ3OGYyMDAxODI0NzIyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JBCRjw5RKlVIiDOpfPHDVQ7wXYHES_scI9aV0Ms4kpM"
+    private val bearerToken = "token"
 
     private val repository: MoviesRepository = RemoteMoviesRepository(
         client = httpClient,
