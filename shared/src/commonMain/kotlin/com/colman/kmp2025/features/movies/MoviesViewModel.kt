@@ -4,13 +4,12 @@ import co.touchlab.kermit.Logger
 import com.colman.kmp2025.data.firebase.FirebaseRepository
 import com.colman.kmp2025.data.movies.MoviesRepository
 import com.colman.kmp2025.features.BaseViewModel
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.FirebaseNetworkException
-import dev.gitlive.firebase.auth.auth
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import com.colman.kmp2025.data.Result
+import com.colman.kmp2025.models.Movies
 
 class MoviesViewModel(
     private val repository: MoviesRepository,
@@ -30,41 +29,22 @@ class MoviesViewModel(
 
     private fun signin() {
         scope.launch {
-            signinAnonymously()
-        }
-    }
-
-    private suspend fun signinAnonymously() {
-        if (Firebase.auth.currentUser == null) {
-            Firebase.auth.signInAnonymously()
-            try {
-                Firebase.auth.signInAnonymously()
-            } catch (e: FirebaseNetworkException) {
-                e.message?.let { Logger.e(it) }
-            }
+            firebaseRepository.signInAnonymously()
         }
     }
 
     private fun fetchMovies() {
         scope.launch {
 
-            val movies = repository.upcomingMovies()
-
-            if (movies == null) {
-                _uiState.emit(
-                    MoviesState.Error(errorMessage = "Failed to fetch upcoming movies!! ")
-                )
-            } else {
-
-                delay(300)
-
-                firebaseRepository.saveMovie(movies.items.first())
-
-                _uiState.emit(
-                    MoviesState.Loaded(movies)
-                )
+            val result = repository.upcomingMovies()
+            when(result) {
+                is Result.Success -> {
+                    _uiState.emit(MoviesState.Loaded(result.data ?: Movies(emptyList()) ))
+                }
+                is Result.Failure -> {
+                    _uiState.emit(MoviesState.Error(errorMessage = result.error?.message ?: "N/A"))
+                }
             }
         }
-
     }
 }

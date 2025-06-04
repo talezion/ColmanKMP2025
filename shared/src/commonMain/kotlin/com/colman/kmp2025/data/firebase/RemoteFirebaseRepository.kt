@@ -37,4 +37,10 @@ class RemoteFirebaseRepository: FirebaseRepository {
             .documents
             .map { it.data() } // auto-parsed by Firebase Kotlin SDK
     }
+
+    override suspend fun signInAnonymously() {
+        if (auth.currentUser == null) {
+            auth.signInAnonymously()
+        }
+    }
 }

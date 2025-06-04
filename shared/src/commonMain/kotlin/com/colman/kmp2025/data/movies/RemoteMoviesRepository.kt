@@ -1,5 +1,6 @@
 package com.colman.kmp2025.data.movies
 
+import com.colman.kmp2025.data.Result
 import com.colman.kmp2025.models.Movie
 import com.colman.kmp2025.models.Movies
 import io.ktor.client.HttpClient
@@ -14,12 +15,16 @@ import io.ktor.http.headers
 import io.ktor.http.isSuccess
 import kotlinx.serialization.Serializable
 
+data class TMDBError (
+    override val message: String
+) : com.colman.kmp2025.data.Error
+
 class RemoteMoviesRepository(
     private val client: HttpClient,
     private val bearerToken: String
 ): MoviesRepository {
 
-    override suspend fun upcomingMovies(): Movies? {
+    override suspend fun upcomingMovies(): Result<Movies, TMDBError> {
         return try {
             val response: HttpResponse  = client.get("https://api.themoviedb.org/3/movie/upcoming") {
                 url {
@@ -35,15 +40,19 @@ class RemoteMoviesRepository(
 
             if (!response.status.isSuccess()) {
                 // Log error
-                null
+                Result.Failure(
+                    TMDBError(message = "Failed to fetch upcoming movies: ${response.status.value}")
+                )
             }
 
             val text = response.bodyAsText()
             val moviesResponse: MoviesResponse = response.body()
 
-            Movies(items = moviesResponse.results)
+            Result.Success(Movies(items = moviesResponse.results))
         } catch (e: Exception) {
-            null
+            Result.Failure(
+                TMDBError(message = e.message ?: "")
+            )
         }
     }
 }

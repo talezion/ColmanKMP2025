@@ -6,4 +6,5 @@ interface FirebaseRepository {
     suspend fun saveMovie(movie: Movie)
     suspend fun deleteMovie(movie: Movie)
     suspend fun getSavedMovies(): List<Movie>
+    suspend fun signInAnonymously()
 }
