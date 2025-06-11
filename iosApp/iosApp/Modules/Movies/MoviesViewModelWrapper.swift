@@ -18,7 +18,7 @@ extension MoviesScreen {
         @Published var uiState: MoviesState
         
         init() {
-            self.viewModel = ViewModelFactory().createViewModel()
+            self.viewModel = KoinKt.moviesViewModel() // ViewModelFactory().createViewModel()
             self.uiState = viewModel.uiState.value
         }
         

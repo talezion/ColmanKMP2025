@@ -16,51 +16,51 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-private lateinit var appContext: Context
+//private lateinit var appContext: Context
+//
+//fun initViewModelFactory(context: Context) {
+//    appContext = context.applicationContext
+//}
+//
+//actual abstract class AbstractViewModelFactory {
+//
+//    actual val lightSensorProvider: LightSensorProvider = LightSensorProvider(
+//        appContext
+//    )
+//
+//    actual val httpClient: HttpClient = HttpClient(OkHttp) {
+//        install(Logging) {
+//            level = LogLevel.ALL
+//            logger = Logger.DEFAULT
+//        }
+//        install(ContentNegotiation) {
+//            json(
+//                Json {
+//                    ignoreUnknownKeys = true
+//                    prettyPrint = true
+//                    isLenient = true
+//                }
+//            )
+//        }
+//    }
+//}
 
-fun initViewModelFactory(context: Context) {
-    appContext = context.applicationContext
-}
-
-actual abstract class AbstractViewModelFactory {
-
-    actual val lightSensorProvider: LightSensorProvider = LightSensorProvider(
-        appContext
-    )
-
-    actual val httpClient: HttpClient = HttpClient(OkHttp) {
-        install(Logging) {
-            level = LogLevel.ALL
-            logger = Logger.DEFAULT
-        }
-        install(ContentNegotiation) {
-            json(
-                Json {
-                    ignoreUnknownKeys = true
-                    prettyPrint = true
-                    isLenient = true
-                }
-            )
-        }
-    }
-}
-
-class MoviesViewModelFactory : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MoviesViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ViewModelFactory.createMoviesViewModel() as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
-
-class MovieViewModelFactory : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MovieViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ViewModelFactory.createMovieViewModel() as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+//class MoviesViewModelFactory : ViewModelProvider.Factory {
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(MoviesViewModel::class.java)) {
+//            @Suppress("UNCHECKED_CAST")
+//            return ViewModelFactory.createMoviesViewModel() as T
+//        }
+//        throw IllegalArgumentException("Unknown ViewModel class")
+//    }
+//}
+//
+//class MovieViewModelFactory : ViewModelProvider.Factory {
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(MovieViewModel::class.java)) {
+//            @Suppress("UNCHECKED_CAST")
+//            return ViewModelFactory.createMovieViewModel() as T
+//        }
+//        throw IllegalArgumentException("Unknown ViewModel class")
+//    }
+//}

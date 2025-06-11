@@ -9,34 +9,34 @@ import com.colman.kmp2025.features.movies.MoviesViewModel
 import com.colman.kmp2025.utils.LightSensorProvider
 import io.ktor.client.HttpClient
 
-expect abstract class AbstractViewModelFactory() {
-    val httpClient: HttpClient
-    val lightSensorProvider: LightSensorProvider
-}
+//expect abstract class AbstractViewModelFactory() {
+//    val httpClient: HttpClient
+//    val lightSensorProvider: LightSensorProvider
+//}
 
-object ViewModelFactory: AbstractViewModelFactory() {
+//object ViewModelFactory: AbstractViewModelFactory() {
 
-    private val bearerToken = "{add_token}"
+//
 
-    private val repository: MoviesRepository = RemoteMoviesRepository(
-        client = httpClient,
-        bearerToken = bearerToken
-    )
+//    private val repository: MoviesRepository = RemoteMoviesRepository(
+//        client = httpClient,
+//        bearerToken = bearerToken
+//    )
 
-    private val firebaseRepository: FirebaseRepository = RemoteFirebaseRepository()
-
-    fun createMoviesViewModel(): MoviesViewModel {
-        return MoviesViewModel(
-            repository = repository,
-            firebaseRepository = firebaseRepository
-        )
-    }
-
-    fun createMovieViewModel(): MovieViewModel {
-        return MovieViewModel(
-            repository = repository,
-            firebaseRepository = firebaseRepository,
-            lightProvider = lightSensorProvider
-        )
-    }
-}
+//    private val firebaseRepository: FirebaseRepository = RemoteFirebaseRepository()
+//
+//    fun createMoviesViewModel(): MoviesViewModel {
+//        return MoviesViewModel(
+//            repository = repository,
+//            firebaseRepository = firebaseRepository
+//        )
+//    }
+//
+//    fun createMovieViewModel(): MovieViewModel {
+//        return MovieViewModel(
+//            repository = repository,
+//            firebaseRepository = firebaseRepository,
+//            lightProvider = lightSensorProvider
+//        )
+//    }
+//}

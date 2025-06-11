@@ -47,10 +47,11 @@ import com.colman.kmp2025.features.movies.MoviesState
 import com.colman.kmp2025.features.movies.MoviesViewModel
 import com.colman.kmp2025.models.Movie
 import com.colman.kmp2025.models.Movies
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MoviesScreen(
-    viewModel: MoviesViewModel,
+    viewModel: MoviesViewModel = koinViewModel(),
     onMovieClick: (Movie) -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsState().value

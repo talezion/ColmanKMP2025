@@ -11,23 +11,23 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-actual abstract class AbstractViewModelFactory {
-
-    actual val lightSensorProvider: LightSensorProvider = LightSensorProvider()
-
-    actual val httpClient: HttpClient = HttpClient(Darwin) {
-        install(Logging) {
-            level = LogLevel.ALL
-            logger = Logger.DEFAULT
-        }
-        install(ContentNegotiation) {
-            json(
-                Json {
-                    ignoreUnknownKeys = true
-                    prettyPrint = true
-                    isLenient = true
-                }
-            )
-        }
-    }
-}
+//actual abstract class AbstractViewModelFactory {
+//
+//    actual val lightSensorProvider: LightSensorProvider = LightSensorProvider()
+//
+//    actual val httpClient: HttpClient = HttpClient(Darwin) {
+//        install(Logging) {
+//            level = LogLevel.ALL
+//            logger = Logger.DEFAULT
+//        }
+//        install(ContentNegotiation) {
+//            json(
+//                Json {
+//                    ignoreUnknownKeys = true
+//                    prettyPrint = true
+//                    isLenient = true
+//                }
+//            )
+//        }
+//    }
+//}

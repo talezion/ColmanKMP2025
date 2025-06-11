@@ -17,6 +17,10 @@ struct iOSApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
+    init() {
+        KoinKt.doInitKoin()
+    }
+    
     var body: some Scene {
         WindowGroup {
             TabView {

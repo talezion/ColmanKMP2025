@@ -19,9 +19,10 @@ data class TMDBError (
     override val message: String
 ) : com.colman.kmp2025.data.Error
 
+private val bearerToken = "token"
+
 class RemoteMoviesRepository(
-    private val client: HttpClient,
-    private val bearerToken: String
+    private val client: HttpClient
 ): MoviesRepository {
 
     override suspend fun upcomingMovies(): Result<Movies, TMDBError> {

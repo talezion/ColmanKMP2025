@@ -19,6 +19,7 @@ firebaseFirestore = "2.1.0"
 foundation = "1.7.8"
 junit = "4.13.2"
 kermit = "1.2.2"
+koinAndroid = "4.0.4"
 kotlin = "2.1.0"
 kotlinxCoroutinesCore = "1.10.1"
 ktorClientCore = "3.0.1"
@@ -46,6 +47,11 @@ firebase-common = { module = "dev.gitlive:firebase-common", version.ref = "fireb
 firebase-common-ktx = { module = "com.google.firebase:firebase-common-ktx", version.ref = "firebaseCommonKtx" }
 firebase-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "firebaseFirestore" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroid" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinAndroid" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinAndroid" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinAndroid" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

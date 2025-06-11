@@ -31,12 +31,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.colman.kmp2025.di.MovieViewModelFactory
-import com.colman.kmp2025.di.MoviesViewModelFactory
-import com.colman.kmp2025.di.initViewModelFactory
 import com.colman.kmp2025.features.MoviesScreen
-import com.colman.kmp2025.features.movie.MovieViewModel
-import com.colman.kmp2025.features.movies.MoviesViewModel
 import com.colman.kmp2025.models.Movie
 import com.colman.kmp2025.shared_components.BottomNavigationBar
 import com.google.firebase.FirebaseApp
@@ -48,13 +43,13 @@ sealed class MovieTab(val route: String, val title: String) {
 
 class MainActivity : ComponentActivity() {
 
-    private val moviesViewModel: MoviesViewModel by viewModels { MoviesViewModelFactory() }
-    private val movieViewModel: MovieViewModel by viewModels { MovieViewModelFactory() }
+//    private val moviesViewModel: MoviesViewModel by viewModels { MoviesViewModelFactory() }
+//    private val movieViewModel: MovieViewModel by viewModels { MovieViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initViewModelFactory(applicationContext)
+//        initViewModelFactory(applicationContext)
 
         FirebaseApp.initializeApp(this)
 
@@ -106,7 +101,6 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(MovieTab.Home.route) {
                             MoviesScreen(
-                                viewModel = moviesViewModel,
                                 onMovieClick = { movie ->
                                     navController.navigateToMovie(movie)
                                 }
@@ -115,7 +109,6 @@ class MainActivity : ComponentActivity() {
 
                         composable(MovieTab.Favorites.route) {
                             MoviesScreen(
-                                viewModel = moviesViewModel,
                                 onMovieClick = { movie ->
                                     navController.navigateToMovie(movie)
                                 }
@@ -125,6 +118,7 @@ class MainActivity : ComponentActivity() {
                         composable("movie/{movieId}") { backStackEntry ->
                             val movieId = backStackEntry.arguments?.getString("movieId")
                             if (movieId != null) {
+                                // TODO For next class: inject view model
                                 MovieDetailsScreen(movieId)
                             }
                         }
