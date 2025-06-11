@@ -11,10 +11,17 @@ import Shared
 
 struct MovieDetailScreen: View {
     
+    @ObservedObject private(set) var viewModel: MovieViewModelWrapper = MovieViewModelWrapper()
     let movie: Movie
     
     var body: some View {
-        Text("Hello \(movie.title ?? "")")
+        
+        VStack {
+            
+        }
+        .onAppear() {
+            viewModel.startObserving()
+        }
     }
 }
 

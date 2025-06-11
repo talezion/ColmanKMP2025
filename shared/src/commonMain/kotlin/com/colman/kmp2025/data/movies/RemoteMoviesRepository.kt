@@ -19,7 +19,7 @@ data class TMDBError (
     override val message: String
 ) : com.colman.kmp2025.data.Error
 
-private val bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YzFkZTRjNTYwOWZjMjFiMGIxNDUyZTQyYTcyZmJlYiIsIm5iZiI6MTU3MzY1NTM1Ny45MjYsInN1YiI6IjVkY2MxMzNkMWQ3OGYyMDAxODI0NzIyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JBCRjw5RKlVIiDOpfPHDVQ7wXYHES_scI9aV0Ms4kpM"
+private val bearerToken = "token"
 
 class RemoteMoviesRepository(
     private val client: HttpClient
