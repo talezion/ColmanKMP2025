@@ -42,9 +42,6 @@ val commonModule = module {
     singleOf(::RemoteMoviesRepository).bind<MoviesRepository>()
 
     single { createHttpClient(get(), get()) }
-
-    factoryOf(::MoviesViewModel)
-    factoryOf(::MovieViewModel)
 }
 
 fun createJson(): Json = Json {
