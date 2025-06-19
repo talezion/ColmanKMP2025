@@ -1,5 +1,6 @@
 package com.colman.kmp2025.data.movies
 
+import com.colman.kmp2025.data.Error
 import com.colman.kmp2025.data.Result
 import com.colman.kmp2025.models.Movie
 import com.colman.kmp2025.models.Movies
@@ -17,10 +18,11 @@ import kotlinx.serialization.Serializable
 
 data class TMDBError (
     override val message: String
-) : com.colman.kmp2025.data.Error
+) : Error
 
 private val bearerToken = "token"
 
+// Refactor client to be generic and injectable
 class RemoteMoviesRepository(
     private val client: HttpClient
 ): MoviesRepository {

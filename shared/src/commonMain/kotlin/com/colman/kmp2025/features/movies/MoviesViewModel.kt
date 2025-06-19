@@ -9,11 +9,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import com.colman.kmp2025.data.Result
+import com.colman.kmp2025.domain.GetMovies
+import com.colman.kmp2025.domain.SignInAnonymously
 import com.colman.kmp2025.models.Movies
 
 class MoviesViewModel(
-    private val repository: MoviesRepository,
-    private val firebaseRepository: FirebaseRepository
+    val useCases: MoviesUseCases
 ): BaseViewModel() {
 
     private val _uiState: MutableStateFlow<MoviesState> = MutableStateFlow(MoviesState.Loading)
@@ -29,14 +30,14 @@ class MoviesViewModel(
 
     private fun signin() {
         scope.launch {
-            firebaseRepository.signInAnonymously()
+            useCases.signInAnonymously()
         }
     }
 
     private fun fetchMovies() {
         scope.launch {
 
-            val result = repository.upcomingMovies()
+            val result = useCases.getMovies()
             when(result) {
                 is Result.Success -> {
                     _uiState.emit(MoviesState.Loaded(result.data ?: Movies(emptyList()) ))

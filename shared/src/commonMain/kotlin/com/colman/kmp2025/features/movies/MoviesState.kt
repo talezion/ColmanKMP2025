@@ -11,3 +11,5 @@ public sealed class MoviesState {
         var errorMessage: String
     ): MoviesState()
 }
+
+// Add uiEvent sealed class

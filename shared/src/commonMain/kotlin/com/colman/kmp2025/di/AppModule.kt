@@ -4,7 +4,10 @@ import com.colman.kmp2025.data.firebase.FirebaseRepository
 import com.colman.kmp2025.data.firebase.RemoteFirebaseRepository
 import com.colman.kmp2025.data.movies.MoviesRepository
 import com.colman.kmp2025.data.movies.RemoteMoviesRepository
+import com.colman.kmp2025.domain.GetMovies
+import com.colman.kmp2025.domain.SignInAnonymously
 import com.colman.kmp2025.features.movie.MovieViewModel
+import com.colman.kmp2025.features.movies.MoviesUseCases
 import com.colman.kmp2025.features.movies.MoviesViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
@@ -32,9 +35,15 @@ fun initKoin(config: KoinAppDeclaration? = null) {
 
 fun initKoin() = initKoin { }
 
-fun appModules() = listOf(commonModule, platformModule)
+fun appModules() = listOf(commonModule, platformModule, domainModule)
 
 expect val platformModule: Module
+
+val domainModule = module {
+    factoryOf(::SignInAnonymously)
+    factoryOf(::GetMovies)
+    factoryOf(::MoviesUseCases)
+}
 
 val commonModule = module {
     singleOf(::createJson)
