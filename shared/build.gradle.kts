@@ -4,11 +4,22 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    kotlin("plugin.serialization") version "2.1.0"
+//    kotlin("plugin.serialization") version "2.1.0"
     id("co.touchlab.skie") version "0.10.1"
+
+//    id("app.cash.sqldelight") version "2.1.0"
+    alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
+    sqldelight {
+        databases {
+            create("AppDatabase") {
+                packageName.set("com.colman.kmpdemo")
+            }
+        }
+    }
 
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
@@ -40,6 +51,7 @@ kotlin {
 
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+            implementation(libs.android.driver)
         }
 
         commonMain.dependencies {
@@ -60,10 +72,14 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
+
+            implementation(libs.runtime)
+            implementation(libs.coroutines.extensions)
         }
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+            implementation(libs.native.driver)
         }
     }
 }

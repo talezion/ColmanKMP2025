@@ -1,0 +1,26 @@
+
+CREATE TABLE MovieEntity (
+    id INTEGER PRIMARY KEY,
+    backdropPath     TEXT,
+    originalTitle    TEXT,
+    overview          TEXT,
+    popularity        REAL,
+    posterPath       TEXT,
+    releaseDate      TEXT,
+    title             TEXT,
+    voteAverage      REAL,
+    voteCount        INTEGER
+);
+
+insertMovie:
+INSERT OR REPLACE INTO MovieEntity(
+  id, backdropPath, originalTitle,
+  overview, popularity, posterPath, releaseDate, title,
+  voteAverage, voteCount
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectMovieById:
+SELECT * FROM MovieEntity WHERE id = ?;
+
+selectAllMovies:
+SELECT * FROM MovieEntity;

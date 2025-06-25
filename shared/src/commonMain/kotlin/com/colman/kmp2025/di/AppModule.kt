@@ -1,14 +1,18 @@
 package com.colman.kmp2025.di
 
+import com.colman.kmp2025.data.dao.MovieDao
 import com.colman.kmp2025.data.firebase.FirebaseRepository
 import com.colman.kmp2025.data.firebase.RemoteFirebaseRepository
 import com.colman.kmp2025.data.movies.MoviesRepository
 import com.colman.kmp2025.data.movies.RemoteMoviesRepository
 import com.colman.kmp2025.domain.GetMovies
+import com.colman.kmp2025.domain.GetSavedMovies
+import com.colman.kmp2025.domain.SaveMovie
 import com.colman.kmp2025.domain.SignInAnonymously
 import com.colman.kmp2025.features.movie.MovieViewModel
 import com.colman.kmp2025.features.movies.MoviesUseCases
 import com.colman.kmp2025.features.movies.MoviesViewModel
+import com.colman.kmpdemo.AppDatabase
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -43,6 +47,8 @@ val domainModule = module {
     factoryOf(::SignInAnonymously)
     factoryOf(::GetMovies)
     factoryOf(::MoviesUseCases)
+    factoryOf(::GetSavedMovies)
+    factoryOf(::SaveMovie)
 }
 
 val commonModule = module {
@@ -51,6 +57,10 @@ val commonModule = module {
     singleOf(::RemoteMoviesRepository).bind<MoviesRepository>()
 
     single { createHttpClient(get(), get()) }
+
+    single { AppDatabase(get()) }
+    single { get<AppDatabase>().moviesQueries }
+    single { MovieDao(get()) }
 }
 
 fun createJson(): Json = Json {

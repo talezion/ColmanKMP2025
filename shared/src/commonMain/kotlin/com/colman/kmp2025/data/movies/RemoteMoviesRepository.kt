@@ -2,6 +2,7 @@ package com.colman.kmp2025.data.movies
 
 import com.colman.kmp2025.data.Error
 import com.colman.kmp2025.data.Result
+import com.colman.kmp2025.data.dao.MovieDao
 import com.colman.kmp2025.models.Movie
 import com.colman.kmp2025.models.Movies
 import io.ktor.client.HttpClient
@@ -24,8 +25,23 @@ private val bearerToken = "token"
 
 // Refactor client to be generic and injectable
 class RemoteMoviesRepository(
-    private val client: HttpClient
+    private val client: HttpClient,
+    private val movieDao: MovieDao
 ): MoviesRepository {
+
+    override suspend fun save(movie: Movie) {
+        movieDao.insertMovie(movie)
+    }
+
+    override suspend fun getSavedMovies(): Result<Movies, TMDBError> {
+        return try {
+            Result.Success(Movies(items = movieDao.getAllMovies()))
+        } catch (e: Exception) {
+            Result.Failure(
+                TMDBError(message = e.message ?: "Failed to fetch saved movies from local db")
+            )
+        }
+    }
 
     override suspend fun upcomingMovies(): Result<Movies, TMDBError> {
         return try {
