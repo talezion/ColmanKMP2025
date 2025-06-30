@@ -31,6 +31,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.colman.kmp2025.features.FavouritesMoviesScreen
 import com.colman.kmp2025.features.MoviesScreen
 import com.colman.kmp2025.models.Movie
 import com.colman.kmp2025.shared_components.BottomNavigationBar
@@ -108,7 +109,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(MovieTab.Favorites.route) {
-                            MoviesScreen(
+                            FavouritesMoviesScreen(
                                 onMovieClick = { movie ->
                                     navController.navigateToMovie(movie)
                                 }

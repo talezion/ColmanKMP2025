@@ -7,5 +7,6 @@ import com.colman.kmp2025.models.Movies
 interface MoviesRepository {
     suspend fun upcomingMovies(): Result<Movies, TMDBError>
     suspend fun getSavedMovies(): Result<Movies, TMDBError>
+//    suspend fun getPopularMovies(page: String): Result<Movies, TMDBError>
     suspend fun save(movie: Movie)
 }

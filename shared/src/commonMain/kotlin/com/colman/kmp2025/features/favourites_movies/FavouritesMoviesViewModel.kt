@@ -16,6 +16,10 @@ class FavouritesMoviesViewModel(
         MutableStateFlow(FavouritesMoviesState.Loading)
     val uiState: StateFlow<FavouritesMoviesState> get() = _uiState
 
+    init {
+        fetchMovies()
+    }
+
     private fun fetchMovies() {
         scope.launch {
 

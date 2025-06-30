@@ -9,6 +9,7 @@ import com.colman.kmp2025.domain.GetMovies
 import com.colman.kmp2025.domain.GetSavedMovies
 import com.colman.kmp2025.domain.SaveMovie
 import com.colman.kmp2025.domain.SignInAnonymously
+import com.colman.kmp2025.features.favourites_movies.FavouritesMoviesUseCases
 import com.colman.kmp2025.features.movie.MovieViewModel
 import com.colman.kmp2025.features.movies.MoviesUseCases
 import com.colman.kmp2025.features.movies.MoviesViewModel
@@ -46,9 +47,11 @@ expect val platformModule: Module
 val domainModule = module {
     factoryOf(::SignInAnonymously)
     factoryOf(::GetMovies)
-    factoryOf(::MoviesUseCases)
     factoryOf(::GetSavedMovies)
     factoryOf(::SaveMovie)
+
+    factoryOf(::FavouritesMoviesUseCases)
+    factoryOf(::MoviesUseCases)
 }
 
 val commonModule = module {
