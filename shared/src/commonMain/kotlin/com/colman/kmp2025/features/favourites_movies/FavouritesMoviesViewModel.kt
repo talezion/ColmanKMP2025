@@ -10,11 +10,11 @@ import kotlinx.coroutines.launch
 
 class FavouritesMoviesViewModel(
     private val useCases: FavouritesMoviesUseCases
-) : BaseViewModel() {
+) : BaseViewModel<FavouritesMoviesState>() {
 
     private val _uiState: MutableStateFlow<FavouritesMoviesState> =
         MutableStateFlow(FavouritesMoviesState.Loading)
-    val uiState: StateFlow<FavouritesMoviesState> get() = _uiState
+    override val uiState: StateFlow<FavouritesMoviesState> get() = _uiState
 
     init {
         fetchMovies()

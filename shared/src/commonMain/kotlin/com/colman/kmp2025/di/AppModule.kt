@@ -9,6 +9,8 @@ import com.colman.kmp2025.domain.GetMovies
 import com.colman.kmp2025.domain.GetSavedMovies
 import com.colman.kmp2025.domain.SaveMovie
 import com.colman.kmp2025.domain.SignInAnonymously
+import com.colman.kmp2025.features.UiState
+import com.colman.kmp2025.features.ViewStateHolder
 import com.colman.kmp2025.features.favourites_movies.FavouritesMoviesUseCases
 import com.colman.kmp2025.features.movie.MovieViewModel
 import com.colman.kmp2025.features.movies.MoviesUseCases
@@ -22,7 +24,9 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
+import org.koin.core.Koin
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf

@@ -22,10 +22,10 @@ sealed class MoviesTab {
 
 class MoviesViewModel(
     val useCases: MoviesUseCases
-): BaseViewModel() {
+): BaseViewModel<MoviesState>() {
 
     private val _uiState: MutableStateFlow<MoviesState> = MutableStateFlow(MoviesState.Loading)
-    val uiState: StateFlow<MoviesState> get() = _uiState
+    override val uiState: StateFlow<MoviesState> get() = _uiState
 
     private var log = Logger.withTag("MoviesViewModel")
     private var logflow = Logger.withTag("MoviesViewModel-FLOW")

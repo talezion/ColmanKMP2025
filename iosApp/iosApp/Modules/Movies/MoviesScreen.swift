@@ -11,7 +11,8 @@ import Shared
 
 struct MoviesScreen: View {
     
-    @ObservedObject private(set) var viewModel: MoviesViewModelWrapper = MoviesViewModelWrapper()
+    @ObservedObject private(set) var viewModel = ViewModelWrapper<MoviesState, MoviesViewModel>()
+    
     @State private var selectedMovie: Movie?
     
     var body: some View {

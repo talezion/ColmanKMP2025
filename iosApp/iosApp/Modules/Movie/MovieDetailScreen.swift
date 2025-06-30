@@ -11,7 +11,7 @@ import Shared
 
 struct MovieDetailScreen: View {
     
-    @ObservedObject private(set) var viewModel: MovieViewModelWrapper = MovieViewModelWrapper()
+//    @ObservedObject private(set) var viewModel = ViewModelWrapper<MovDe>()
     let movie: Movie
     
     var body: some View {
@@ -20,7 +20,7 @@ struct MovieDetailScreen: View {
             
         }
         .onAppear() {
-            viewModel.startObserving()
+//            viewModel.startObserving()
         }
     }
 }

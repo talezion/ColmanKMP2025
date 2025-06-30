@@ -13,10 +13,10 @@ class MovieViewModel(
     private val repository: MoviesRepository,
     private val firebaseRepository: FirebaseRepository,
     private val lightProvider: LightSensorProvider
-): BaseViewModel() {
+): BaseViewModel<MovieState>() {
 
     private val _uiState: MutableStateFlow<MovieState> = MutableStateFlow(MovieState.Loading)
-    val uiState: StateFlow<MovieState> get() = _uiState
+    override val uiState: StateFlow<MovieState> get() = _uiState
 
     private val _lux = MutableStateFlow<Float?>(null)
     val lux: StateFlow<Float?> get() = _lux
